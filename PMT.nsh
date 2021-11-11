@@ -1,6 +1,6 @@
 :PMT
-:GIT 
-
+:GIT https://github.com/richards-AMI/PMT
+@echo -off
 # Build BIOS with this token
 # PERFORMANCE_MEASUREMENTS_SUPPORT = TRUE
 #
@@ -16,8 +16,8 @@
 
 # Then run adp.efi > lb.log
 # Commands are:  “adp.efi > lb.log”
-# And,  "adp.efi -f lb.csv > lb.txt" */
-# Assumes this .nsh and adp.efi in the same directory.   .csv will be saved to root 
+# And,  "adp.efi -f lb.csv > lb.txt"
+# Assumes this .nsh and adp.efi in the same directory.   .csv will be saved to root
 
 :START
 	echo " "
@@ -26,12 +26,14 @@
 	echo "* ************************************ * ************************************ *"
 	echo "* ************************************ * ************************************ *"
 
-# Note no extension on file system for this part of the script, add .log, .txt and .csv below.
+# Note no extension on filename for this part of the script, add .log, .txt and .csv below.
 set -v FN AMI_PMT
 
 # If a filename is provided by user
-if  x%1 ne x  then  
+if  x%1 ne x  then
 	set -v FN %1
+else
+	echo Provide a FileName ex.  %0 LB_PMT
 endif
 
 # initialize 2 log files
@@ -43,11 +45,17 @@ endif
 	time >> %FN%.txt
 	echo "* ************************************ * ************************************ *" >> %FN%.txt
 	echo " " >> %FN%.txt
-:SCRIPT	
+:SCRIPT
 	ADP.efi >> %FN%.log
 	ADP.efi -f %FN%.csv >> %FN%.txt
+	type %FN%.txt
+	echo " "
+	echo " "
+	echo "* ************************************ * ************************************ *"
+	echo "* ************************************ * ************************************ *"
+	echo "* ************************************ * ************************************ *"
+	echo " "
+	echo " "
+	echo DONE
 	echo " "
 :DONE
-
-	
-	
