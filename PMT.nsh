@@ -1,10 +1,12 @@
 :PMT
 :GIT https://github.com/richards-AMI/PMT
+
 @echo -off
+
 # Build BIOS with this token
 # PERFORMANCE_MEASUREMENTS_SUPPORT = TRUE
 #
-#Ensure BIOS Date/Time are correct
+# Ensure BIOS Date/Time are correct
 
 # Utility is downloaded from:
 # http://172.16.96.56:2001/_layouts/15/PMT_Upload/MAIN.aspx
@@ -17,7 +19,7 @@
 # Then run adp.efi > lb.log
 # Commands are:  “adp.efi > lb.log”
 # And,  "adp.efi -f lb.csv > lb.txt"
-# Assumes this .nsh and adp.efi in the same directory.   .csv will be saved to root
+# Assumes this .nsh and adp.efi  are in the same directory.  The .csv will be saved to root
 
 :START
 	echo " "
@@ -33,10 +35,10 @@ set -v FN AMI_PMT
 if  x%1 ne x  then
 	set -v FN %1
 else
-	echo Provide a FileName ex.  %0 LB_PMT
+	echo Provide a FileName ex.:  %0 LB_PMT  using %FN%
 endif
 
-# initialize 2 log files
+# initialize the 2 log files
 	date > %FN%.log
 	time >> %FN%.log
 	echo "* ************************************ * ************************************ *" >> %FN%.log
@@ -45,10 +47,13 @@ endif
 	time >> %FN%.txt
 	echo "* ************************************ * ************************************ *" >> %FN%.txt
 	echo " " >> %FN%.txt
+	
 :SCRIPT
 	ADP.efi >> %FN%.log
 	ADP.efi -f %FN%.csv >> %FN%.txt
 	type %FN%.txt
+
+:DONE	
 	echo " "
 	echo " "
 	echo "* ************************************ * ************************************ *"
@@ -58,4 +63,4 @@ endif
 	echo " "
 	echo DONE
 	echo " "
-:DONE
+:END
